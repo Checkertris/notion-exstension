@@ -1,0 +1,6 @@
+{
+    "manifest_version": 3,
+    "name": "My ReactJS Boilerplate",
+    "description": "Runs a script when the user clicks the action toolbar icon.",
+    "version": "1.0.0"
+}
