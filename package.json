@@ -71,7 +71,7 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.5.3",
     "vaul": "^0.9.1",
     "yp": "^2.0.3",
     "yup": "^1.4.0",
