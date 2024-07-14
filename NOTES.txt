@@ -1,0 +1,42 @@
+
+for your manifest for chome tab overrides:
+"chrome_url_overrides" : {
+ "newtab": "newTab.html"
+},
+
+    state management: session storage, local storage, chrome storage, states, global states, save to json file, firebase
+
+  //development logs
+  chrome.storage.onChanged.addListener((changes, namespace) => {
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+      console.log(
+        `Storage key "${key}" in namespace "${namespace}" changed.`,
+        `Old value was "${oldValue}", new value is "${newValue}".`
+      );
+    }
+  });
+
+pkill -f node
+
+["<all_urls>"] 
+
+
+hooks
+- useMemo, useRef, useContext, useReducer, useCallback (similar to memo but stores the entire function so can be reused in child components)
+- useLayoutEffect - synchronous
+- use reducer may help replace the need for classes
+- useTransition, useDefferedValue - used SPECIFICALLY for obvious nonresponsivity
+- useDebugValue hook
+- useFormStatus, useOptimistic, useImperativeHandle, useID, useEffectEvent
+
+Custom hooks
+- useUpdateEffect
+- useAsync
+
+
+Use one-off messages when…
+Only one response is expected to a message.
+A small number of scripts listen to receive messages (runtime.onMessage calls).
+Use connection-based messaging when…
+Scripts engage in sessions where multiple messages are exchanged.
+The extension needs to know about task progress or if a task is interrupted, or wants to interrupt a task initiated using messaging.

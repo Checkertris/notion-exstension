@@ -1,0 +1,40 @@
+.markup {
+  @apply relative inline-block;
+}
+
+.markup.highlight::before {
+  height: 100%;
+}
+
+.markup.under::before {
+  height: 10%;
+  bottom: 2px;
+}
+
+.markup.red::before {
+  background-color: red;
+}
+
+.markup::before {
+  @apply absolute content-[''];
+  background-color: #f2f2f2;
+  border-radius: 0.2rem;
+  width: 100%;
+}
+
+.markup.animated::before {
+  transition-timing-function: cubic-bezier(0.32, 0.505, 0, 1);
+  animation: stretch 0.5s 0s;
+  transform-origin: left;
+}
+
+@keyframes stretch {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}

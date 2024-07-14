@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "My ReactJS Boilerplate",
+  "description": "Runs a script when the user clicks the action toolbar icon.",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "Click Me"
+  },
+  "permissions": ["tabs", "bookmarks", "storage", "identity", "scripting", "activeTab", "sidePanel"],
+  "host_permissions": ["https://api.notion.com/v1/*", "<all_urls>"],
+  "side_panel": {
+    "default_path": "sidePanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "options_page": "options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["popup.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
