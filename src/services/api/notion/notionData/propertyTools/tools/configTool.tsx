@@ -29,7 +29,7 @@ export abstract class StaticConfigTool<T> extends AnyConfigTool<T> {
     format = () => ({})
 }
 
-export class NullConfig extends AnyConfigTool<{}> {
+export class NullConfigTool extends AnyConfigTool<{}> {
     extract = (data) => ({})
     format = () => ({})
 }

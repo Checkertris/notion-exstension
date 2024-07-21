@@ -1,4 +1,4 @@
-import { NullConfig } from "./tools/configTool";
+import { NullConfigTool } from "./tools/configTool";
 import { PropertyTool } from "./tools/propertyTool";
 import { ReadonlyValueTool } from "./tools/valueTool";
 
@@ -8,14 +8,14 @@ class DateValue extends ReadonlyValueTool<Date> {
 
 export class LastEditedTime extends PropertyTool {
     label = "Last edited time"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new DateValue()
 }
 
 
 export class CreatedTime extends PropertyTool {
     label = "Created time"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new DateValue()
 }
 

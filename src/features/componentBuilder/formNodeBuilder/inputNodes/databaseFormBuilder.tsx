@@ -1,12 +1,23 @@
 import { DatabaseForm, UseDatabaseFormReturn } from "~/features/databaseForm";
-import { ContextList } from "~/hooks";
+import { InputNodeBuilder, PageNodeBuilder } from "../nodeBuilders"
+import { AnyUseFormReturn } from "~/features/formList";
+import { InferUseFormReturnList } from "../types";
+import { KeyByValue, PathByValue } from "~/utils";
 
 export class DatabaseFormBuilder<T extends PageNodeBuilder<any>> extends InputNodeBuilder<T, UseDatabaseFormReturn> {
-  build(props: { context: ContextList<InferReturnList<T>> }): JSX.Element {
-    const Component = () => {
-      return <DatabaseForm {...this.useForm(props.context)} />;
-    };
+  buildContent(props: { name: string; form: UseDatabaseFormReturn<string>; }): JSX.Element {
+    return <DatabaseForm {...props.form} />
+  }
+}
 
-    return <Component />;
+export class QuickInputBuilder<TPage extends PageNodeBuilder<any>, TForm extends AnyUseFormReturn, TValue> extends InputNodeBuilder<TPage, TForm> {
+  path: PathByValue<TForm, TValue>
+  constructor(key: KeyByValue<InferUseFormReturnList<TPage>, TForm>, path: PathByValue<TForm, TValue>) {
+    super(key)
+    this.path = path
+  }
+
+  buildContent(props: { name: string; form: any; }): JSX.Element {
+
   }
 }

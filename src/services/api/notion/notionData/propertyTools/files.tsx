@@ -1,4 +1,4 @@
-import { NullConfig } from "./tools/configTool";
+import { NullConfigTool } from "./tools/configTool";
 import { PropertyTool } from "./tools/propertyTool";
 import { ValueTool } from "./tools/valueTool";
 
@@ -17,6 +17,6 @@ class FilesValue extends ValueTool<File[]> {
 
 export class Files extends PropertyTool {
     label = "Files & Media"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new FilesValue()
 }

@@ -37,19 +37,15 @@ const allPropertyTools: Record<PropertyType, PropertyTool> = {
     [PropertyType.status]: new Status()
 }
 
-function getTool(key: PropertyType | keyof typeof PropertyType) {
-    if (isExtends<PropertyType>(key)) return allPropertyTools[key]
-    return allPropertyTools[PropertyType[key]]
+
+export function configTool(key: PropertyType) {
+    return allPropertyTools[key].config
 }
 
-export function configTool(key: PropertyType | keyof typeof PropertyType) {
-    return getTool(key).config
+export function getLabel(key: PropertyType) {
+    return allPropertyTools[key].label
 }
 
-export function getLabel(key: PropertyType | keyof typeof PropertyType) {
-    return getTool(key).label
-}
-
-export function valueTool(key: PropertyType | keyof typeof PropertyType) {
-    return getTool(key).value
+export function valueTool(key: PropertyType) {
+    return allPropertyTools[key].value
 } 

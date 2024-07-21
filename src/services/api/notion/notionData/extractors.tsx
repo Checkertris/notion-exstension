@@ -28,7 +28,6 @@ export function extractProperties(data): PropertyData[] {
     }))
 }
 
-
 export function extractPropertyValues(data): PropertyValueData[] {
     return Object.entries(data).map(([name, item]: [string, any]) => ({
         name: name, id: item.id, type: getType(item.type), details: valueTool(item.type).extract(item[item.type])

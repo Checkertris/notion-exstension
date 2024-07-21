@@ -9,14 +9,14 @@ import { PageNodeBuilder, InferReturnList } from "../nodeBuilders";
 
 type InferInputValue<T extends quickFieldProps<any>> = T extends quickFieldProps<infer A> ? A : never;
 
-export abstract class QuickInputBuilder<TPageBuilder extends PageNodeBuilder, TForm extends AnyUseFormReturn, TFormValue = unknown, TKey extends KeyByValue<InferReturnList<TPageBuilder>, TForm>, TProps extends quickFieldProps<any> = quickFieldProps<any>> extends InputNodeBuilder<TPageBuilder, TFormBuilder> {
+export abstract class QuickInputBuilder<TPage extends PageNodeBuilder, TForm extends AnyUseFormReturn, TFormValue = unknown, TKey extends KeyByValue<InferReturnList<TPage>, TForm>, TProps extends quickFieldProps<any> = quickFieldProps<any>> extends InputNodeBuilder<TPage, TFormBuilder> {
   abstract component: (props: TProps) => JSX.Element;
 
   path: PathByValue<TForm, TFormValue>;
   component_props: Omit<TProps, "onChange" | "defaultValue">;
   transform?: (value: InferInputValue<TProps>) => Promise<TFormValue>;
 
-  constructor(key: TKey, path: PathByValue<AnyFormValues<InferUseFormReturns<TPageBuilder>[TKey]>, TFormValue>) {
+  constructor(key: TKey, path: PathByValue<AnyFormValues<InferUseFormReturns<TPage>[TKey]>, TFormValue>) {
     super(key);
     this.path = path;
   }
@@ -29,9 +29,9 @@ export abstract class QuickInputBuilder<TPageBuilder extends PageNodeBuilder, TF
     this.transform = transform;
   }
 
-  build(props: { context: ContextList<InferReturnList<TPageBuilder>> }): JSX.Element {
+  buildContent(props: { name: string; form: UseDatabaseFormReturn<string>; }): JSX.Element {
     var Component = () => {
-      const { control, defaultValues } = this.useForm(props.context);
+      const { control, defaultValues } = props.form
 
       var onChange = (field) => (this.transform ? (value) => this.transform(value).then(field.onChange) : field.onChange);
       var defaultValue = getFromPath(defaultValues, this.path as any);

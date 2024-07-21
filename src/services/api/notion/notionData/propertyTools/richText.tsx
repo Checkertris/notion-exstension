@@ -1,4 +1,4 @@
-import { NullConfig } from "./tools/configTool";
+import { NullConfigTool } from "./tools/configTool";
 import { PropertyTool } from "./tools/propertyTool";
 import { ValueTool } from "./tools/valueTool";
 
@@ -12,12 +12,12 @@ class SimpleRichTextValue extends ValueTool<string> {
 
 export class Text extends PropertyTool {
     label = "Text"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new SimpleRichTextValue()
 }
 
 export class Title extends PropertyTool {
     label = "Title"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new SimpleRichTextValue()
 }

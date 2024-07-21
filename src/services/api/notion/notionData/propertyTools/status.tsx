@@ -3,7 +3,6 @@ import { ValueTool } from "./tools/valueTool";
 import { StaticConfigTool } from "./tools/configTool";
 import { PropertyTool } from "./tools/propertyTool";
 
-
 interface Option<T extends string> {
     name: string
     id: T

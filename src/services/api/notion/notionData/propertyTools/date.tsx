@@ -1,4 +1,4 @@
-import { NullConfig } from "./tools/configTool"
+import { NullConfigTool } from "./tools/configTool"
 import { PropertyTool } from "./tools/propertyTool";
 import { ValueTool } from "./tools/valueTool"
 
@@ -14,7 +14,7 @@ class DateValue extends ValueTool<VDetails> {
 
 export class _Date extends PropertyTool {
     label = "Date"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new DateValue()
 }
 

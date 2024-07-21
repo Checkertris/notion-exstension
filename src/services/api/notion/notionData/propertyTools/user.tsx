@@ -1,4 +1,4 @@
-import { NullConfig } from "./tools/configTool";
+import { NullConfigTool } from "./tools/configTool";
 import { PropertyTool } from "./tools/propertyTool";
 import { ReadonlyValueTool, ValueTool } from "./tools/valueTool";
 
@@ -20,18 +20,18 @@ class ReadonlyUserValue extends ReadonlyValueTool<User> {
 
 export class People extends PropertyTool {
     label = "People"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new PeopleValue()
 }
 
 export class CreatedBy extends PropertyTool {
     label = "Created by"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new ReadonlyUserValue()
 }
 
 export class LastEditedBy extends PropertyTool {
     label = "Last edited by"
-    config = new NullConfig()
+    config = new NullConfigTool()
     value = new ReadonlyUserValue()
 }

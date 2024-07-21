@@ -1,3 +1,3 @@
-import { NodeBuilder } from "./nodeBuilders";
+import { PageNodeBuilder } from "./nodeBuilders";
 
-export type InferUseFormReturnList<T extends NodeBuilder<any>> = T extends NodeBuilder<infer A> ? A : never;
+export type InferUseFormReturnList<T extends PageNodeBuilder<any>> = T extends PageNodeBuilder<infer A> ? A : never;
