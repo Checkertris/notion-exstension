@@ -1,6 +1,6 @@
 import RHF from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Builder from "../builders";
+import Builder from "../builder";
 import { FormSchema, FormDefaultValues, FormValues, UseFormReturn } from "./iForm";
 import useForm from "./useForm";
 

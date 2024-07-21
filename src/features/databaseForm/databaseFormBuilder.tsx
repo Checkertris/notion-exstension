@@ -1,5 +1,5 @@
 import { form } from "../form";
-import { IterableBuilder } from "../builders";
+import { IterableBuilder } from "../builder";
 
 import { PropertyField } from "./propertyField";
 import { createDatabaseSchema } from "./methods/createDatabaseSchema";

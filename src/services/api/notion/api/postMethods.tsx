@@ -1,10 +1,11 @@
 import { notion } from "./client";
-import { DatabaseData } from "..";
+import { DatabaseData, formatProperties } from "../notionData";
+import { formatDatabase, extractDatabase } from "../notionData";
 
 //POST
-export const createNewDatabase = async (database: DatabaseData) => {
-  const newDatabase = await notion.databases.create(database.format());
-  return new DatabaseData().extract(newDatabase);
+export const createDatabase = async (database: DatabaseData) => {
+  const newDatabase = await notion.databases.create(formatDatabase(database));
+  return extractDatabase(newDatabase)
 };
 
 // export const createNewPage = async ({ properties, database_id }: NewPageProps) => {
@@ -22,8 +23,6 @@ export const createNewDatabase = async (database: DatabaseData) => {
 
 //PATCH
 export const updateDatabase = async (database: DatabaseData) => {
-  var properties = database.formatProperties();
-
   const options = {
     method: "PATCH",
     headers: {
@@ -31,12 +30,12 @@ export const updateDatabase = async (database: DatabaseData) => {
       "Notion-Version": "2022-06-28",
       "content-type": "application/json",
     },
-    body: JSON.stringify({ properties }),
+    body: JSON.stringify({ properties: formatProperties(database.properties) }),
   };
 
   var newDatabase = fetch(`https://api.notion.com/v1/databases/${database.id}`, options)
     .then((response) => response.json())
     .catch((err) => console.error(err));
 
-  return new DatabaseData().extract(newDatabase);
+  return extractDatabase(newDatabase)
 };

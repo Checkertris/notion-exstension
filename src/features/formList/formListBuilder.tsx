@@ -1,9 +1,9 @@
 import { reduceObject } from "~/utils";
-import { IterableBuilder } from "../builders";
-import { FormListBuilders } from "./iFormList";
+import { IterableBuilder } from "../builder";
+import { FormBuilderList } from "./iFormList";
 import useFormList from "./useFormList";
 
-export default class FormListBuilder<T extends FormListBuilders> extends IterableBuilder<T> {
+export default class FormListBuilder<T extends FormBuilderList> extends IterableBuilder<T> {
   self = FormListBuilder<T>;
 
   build() {

@@ -4,6 +4,8 @@ import { icon } from "~/constants";
 import { Playground } from "../demos/playground";
 
 export interface PageData {
+  name: string
+  id: string
   label: string;
   icon: icon;
   element?: JSX.Element;

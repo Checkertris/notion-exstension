@@ -1,5 +1,4 @@
 import { PropertyType } from "~/services/api/notion";
-
 import { PropertyField } from "./propertyField";
 import { DatabaseSchema } from "./types";
 import { UseFormReturn } from "../form";

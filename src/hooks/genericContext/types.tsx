@@ -8,4 +8,4 @@ export type ContextProvider<T> = ContextPair<T>[0];
 
 export type ContextList<T extends Record<string, any>> = {
   [k in keyof T]: Context<T[k]>;
-};
+}

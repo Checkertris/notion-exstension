@@ -16,5 +16,23 @@ export const isEqual = <T,>(value): value is T => value as IsEqual<typeof value,
 export type PathByValue<T extends AnyObject, K> = FieldPathByValue<T, K>;
 
 export type KeyByValue<T extends Record<any, any>, K extends any> = keyof {
-  [k in keyof T as T[k] extends T ? k : never]: T[k] extends K ? K : never;
-};
+  [k in keyof T as T[k] extends K ? k : never]: any
+}
+
+export function getFromKey<TValue, T extends any = any, TKey extends KeyByValue<T, TValue> = KeyByValue<T, TValue>>(record: T, key: TKey) {
+  return record[key] as TValue
+}
+
+export type LiteralString<T extends string> = Exclude<T, string>
+
+export type InferOptions<T extends AnyObject[], TKey extends keyof InferArrayItem<T>> = Infer2<Infer1<T, TKey>>
+
+type InferArrayItem<T extends any[]> = T extends Array<infer A> ? A : never
+
+type Infer1<T extends AnyObject[], TKey extends keyof InferArrayItem<T>> = {
+  [k in keyof T]: T[k][Extract<TKey, keyof T[k]>]
+}
+
+type Infer2<T extends string[]> = keyof {
+  [k in keyof T as Extract<T[k], string>]: any
+}
