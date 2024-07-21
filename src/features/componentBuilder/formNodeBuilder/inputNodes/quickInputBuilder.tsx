@@ -6,7 +6,6 @@ import { FormField, ErrorMessage } from "~/features/form";
 import { AnyFormValues, AnyFormBuilder, AnyUseFormReturn } from "~/features/formList";
 import { InputNodeBuilder } from "../InputNodeBuilder";
 import { PageNodeBuilder, InferReturnList } from "../nodeBuilders";
-
 type InferInputValue<T extends quickFieldProps<any>> = T extends quickFieldProps<infer A> ? A : never;
 
 export abstract class QuickInputBuilder<TPage extends PageNodeBuilder, TForm extends AnyUseFormReturn, TFormValue = unknown, TKey extends KeyByValue<InferReturnList<TPage>, TForm>, TProps extends quickFieldProps<any> = quickFieldProps<any>> extends InputNodeBuilder<TPage, TFormBuilder> {

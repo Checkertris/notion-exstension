@@ -11,13 +11,14 @@ export class DatabaseFormBuilder<T extends PageNodeBuilder<any>> extends InputNo
 }
 
 export class QuickInputBuilder<TPage extends PageNodeBuilder<any>, TForm extends AnyUseFormReturn, TValue> extends InputNodeBuilder<TPage, TForm> {
-  path: PathByValue<TForm, TValue>
+  path: PathByValue<TForm, TFormValue>;
+  abstract component: (props: TProps) => JSX.Element;
+  component_props: Omit<TProps, "onChange" | "defaultValue">;
+  transform?: (value: InferInputValue<TProps>) => Promise<TFormValue>;
+
   constructor(key: KeyByValue<InferUseFormReturnList<TPage>, TForm>, path: PathByValue<TForm, TValue>) {
     super(key)
     this.path = path
   }
-
-  buildContent(props: { name: string; form: any; }): JSX.Element {
-
-  }
 }
+
