@@ -1,4 +1,4 @@
-import { DatabaseData, PropertyType } from "~/services/api/notion";
+import { DatabaseData, PropertyType } from "~/features/notion";
 import { QuickSelect, quickSelectProps } from "~/components/quickComponents/quickFields/quickSelect";
 import { ControllerRenderProps } from "react-hook-form";
 import { quickOption } from "~/components/quickComponents";

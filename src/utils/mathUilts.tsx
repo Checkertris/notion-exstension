@@ -16,3 +16,5 @@ export function inRange(value: number, min: number, max: number, errorMessage?: 
   }
   return trueness;
 }
+
+export type Clamp<A extends number = number, B extends number = number> = [min: A, max: B]

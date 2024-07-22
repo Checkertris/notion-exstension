@@ -1,10 +1,9 @@
 import { ChildNodeBuilder } from "../childNodeBuilder";
 
-export class CustomBuilder extends ChildNodeBuilder<any> {
+export class CustomBuilder implements ChildNodeBuilder<any> {
   component: JSX.Element;
 
   constructor(custom: JSX.Element) {
-    super()
     this.component = custom;
   }
   build(): JSX.Element {

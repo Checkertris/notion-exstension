@@ -1,6 +1,6 @@
 import { object, string } from "yup";
 import { yupCustom, unique } from "~/services/api/yup";
-import { PropertyType, DatabaseData } from "~/services/api/notion";
+import { PropertyType, DatabaseData } from "~/features/notion";
 import { newSym, workspaceSym } from "~/constants";
 import { isEqual, mergeObjects, reduceObject } from "~/utils";
 import { PropertyField } from "../propertyField";

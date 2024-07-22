@@ -1,4 +1,4 @@
-import { PropertyType } from "~/services/api/notion";
+import { PropertyType } from "~/features/notion";
 import { PropertyField } from "../propertyField";
 import { DatabaseFormBuilder } from "../databaseFormBuilder";
 

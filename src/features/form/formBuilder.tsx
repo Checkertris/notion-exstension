@@ -1,10 +1,10 @@
 import RHF from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormSchema, FormDefaultValues, FormValues, UseFormReturn } from "../iForms";
-import useForm from "../useForm";
-import { Builder } from "../../builder";
+import { Builder } from "~/features/builder";
+import { FormSchema, FormDefaultValues, FormValues, UseFormReturn } from "./iForms";
+import useForm from "./useForm";
 
-export default class FormBuilder<T extends FormSchema> implements Builder<UseFormReturn<T>> {
+export class FormBuilder<T extends FormSchema> implements Builder<UseFormReturn<T>> {
   schema: T
   defaultValues?: FormDefaultValues<T>;
   configuration?: {

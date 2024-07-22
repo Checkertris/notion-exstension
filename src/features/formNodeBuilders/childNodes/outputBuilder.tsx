@@ -1,11 +1,10 @@
 import { QuickOutput } from "~/components/quickComponents";
 import { ChildNodeBuilder } from "../childNodeBuilder";
 
-export class OutputBuilder extends ChildNodeBuilder<any> {
+export class OutputBuilder implements ChildNodeBuilder<any> {
   output: JSX.Element;
 
   constructor(output: JSX.Element) {
-    super()
     this.output = output;
   }
 

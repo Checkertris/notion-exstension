@@ -12,7 +12,7 @@ export type FixedLengthArray<T, L extends number, TObj = [T, ...ReadonlyArray<T>
 };
 
 export function recordLength<T extends Record<any, any>>(record: T) {
-  return Object.keys(record).length;
+  return Object.keys(record).length as RecordLength<T>
 }
 
 export function shiftRecord(record: Record<any, any>) {
@@ -68,5 +68,5 @@ type LengthObject<T, K extends keyof T = keyof T> = [K] extends [never]
   ? []
   : K extends K ? [0, ...LengthObject<Omit<T, K>>] : never
 
-export type RecordLength<T> = LengthObject<T>["length"]
+export type RecordLength<T> = LengthObject<T>["length"] extends number ? LengthObject<T>["length"] : never
 

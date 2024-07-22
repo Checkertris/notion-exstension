@@ -1,3 +1,4 @@
 export * from "./builder";
-export * from "./iterableBuilder";
-export * from "./parentBuilder";
+export * from "./tools/iterator";
+export * from "./tools/clampableIterator";
+export * from "./parentBuilders";

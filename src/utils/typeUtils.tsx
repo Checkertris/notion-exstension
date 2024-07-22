@@ -1,7 +1,7 @@
 import { FieldPathByValue } from "react-hook-form";
 import { AnyObject } from "./dataUtils";
 export { getFromPath } from "./getFromPath";
-export { Path } from "react-hook-form";
+export { Path, PathValue } from "react-hook-form";
 
 export type IsExtends<A, B, Y = true, N = false> = A extends B ? Y : N;
 
@@ -10,6 +10,16 @@ export type IsEqual<A, B, Y = true, N = false> = (<G>() => G extends A ? 1 : 2) 
 export const isExtends = <T,>(value): value is T => value as IsExtends<typeof value, T>;
 
 export const isEqual = <T,>(value): value is T => value as IsEqual<typeof value, T>;
+
+export function equalsFunc<T, V, Y, N>(v1: T, v2: V, yes: Y, no: N): IsEqual<T, V, Y, N> {
+  if (isEqual<T>(v2)) return yes as any
+  return no as any
+}
+
+export function extendsFunc<T, V, Y, N>(v1: T, v2: V, yes: Y, no: N): IsExtends<T, V, Y, N> {
+  if (isExtends<T>(v2)) return yes as any
+  return no as any
+}
 
 export type PathByValue<T extends AnyObject, K> = FieldPathByValue<T, K>;
 
