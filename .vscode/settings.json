@@ -1,5 +1,5 @@
 {
   "C_Cpp.intelliSenseMemoryLimit": 8192,
-  "typescript.tsserver.maxTsServerIdleTime": 600000,
-  "javascript.memoryLimit": 8192
+  "typescript.tsserver.maxTsServerMemory": 8192,
+
 }

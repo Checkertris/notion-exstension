@@ -1,8 +1,7 @@
 import { isExtends, reduceObject } from "~/utils"
-import { PropertyType } from "./enums"
-import { configTool, valueTool } from "./propertyTools/tools/allPropertyTools"
+import { PropertyType } from "./notionConstants"
+import { configTool, notReadonly, valueTool } from "./propertyTools";
 import { PropertyData, NewPropertyData, PropertyValueData, NewPropertyValueData, ParentData, DatabaseData } from "./iNotionData"
-import { FormattableValueTool } from "./propertyTools/tools/valueTool"
 
 export function formatParent(parent: ParentData) {
     switch (parent.type) {
@@ -22,21 +21,19 @@ export function formatProperties(properties: PropertyData[] | NewPropertyData[])
         key: (property) => {
             if (isExtends<PropertyData>(property)) return property.id
             return property.name
-        }, value: (property) => ({ [property.type]: configTool(property.type).format(property.details) })
+        }, value: (property) => ({ [property.type]: configTool(property.type).format(property.details as any) })
     })
 }
 
 export function formatPropertyValues(properties: NewPropertyValueData[] | PropertyValueData[]) {
     return reduceObject(properties, {
-        filter: (property) => isExtends<FormattableValueTool<any>>(valueTool(property.type)),
+        filter: (property) => notReadonly(valueTool(property.type)),
         key: (property) => {
             if (isExtends<PropertyValueData>(property)) return property.id
             return property.name
         }, value: (property) => {
             var tool = valueTool(property.type)
-            if (isExtends<FormattableValueTool<any>>(tool)) {
-                return { [PropertyType[property.type]]: tool.format(property.details) }
-            }
+            if (notReadonly(tool)) return { [PropertyType[property.type]]: tool.format(property.details) }
         }
     })
 }

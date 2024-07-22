@@ -3,8 +3,6 @@ import { AnyObject } from "./dataUtils";
 export { getFromPath } from "./getFromPath";
 export { Path } from "react-hook-form";
 
-export type RecordValue<T extends Record<any, any>> = T extends Record<any, infer A> ? A : never;
-
 export type IsExtends<A, B, Y = true, N = false> = A extends B ? Y : N;
 
 export type IsEqual<A, B, Y = true, N = false> = (<G>() => G extends A ? 1 : 2) extends <G>() => G extends B ? 1 : 2 ? Y : N;
@@ -23,9 +21,9 @@ export function getFromKey<TValue, T extends any = any, TKey extends KeyByValue<
   return record[key] as TValue
 }
 
-export type LiteralString<T extends string> = Exclude<T, string>
+export type RecordValue<T extends Record<any, any>> = T extends Record<any, infer A> ? A : never;
 
-export type InferOptions<T extends AnyObject[], TKey extends keyof InferArrayItem<T>> = Infer2<Infer1<T, TKey>>
+export type InferKeys<T extends AnyObject[], TKey extends keyof InferArrayItem<T>> = Infer2<Infer1<T, TKey>>
 
 type InferArrayItem<T extends any[]> = T extends Array<infer A> ? A : never
 
@@ -36,3 +34,4 @@ type Infer1<T extends AnyObject[], TKey extends keyof InferArrayItem<T>> = {
 type Infer2<T extends string[]> = keyof {
   [k in keyof T as Extract<T[k], string>]: any
 }
+

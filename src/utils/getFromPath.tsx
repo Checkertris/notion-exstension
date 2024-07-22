@@ -1,4 +1,3 @@
-import { FieldPathByValue, Path as RHFPath } from "react-hook-form";
 type FilterUndefined<T> = T extends undefined ? never : T;
 type FilterNull<T> = T extends null ? never : T;
 type FilterUndefinedAndNull<T> = FilterUndefined<FilterNull<T>>;
@@ -11,17 +10,17 @@ type GetWithArray<O, K> = K extends []
   ? O
   : K extends [infer Key, ...infer Rest]
   ? O extends Record<PropertyKey, unknown>
-    ? GetWithArray<ExtractFromObject<O, Key>, Rest>
-    : O extends readonly any[]
-    ? GetWithArray<ExtractFromArray<O, Key>, Rest>
-    : undefined
+  ? GetWithArray<ExtractFromObject<O, Key>, Rest>
+  : O extends readonly any[]
+  ? GetWithArray<ExtractFromArray<O, Key>, Rest>
+  : undefined
   : never;
 
 type Path<T> = T extends `${infer Key}.${infer Rest}` ? [Key, ...Path<Rest>] : T extends `${infer Key}` ? [Key] : [];
 
-type Get<O, K> = GetWithArray<O, Path<K>>;
+export type PathValue<O, K> = GetWithArray<O, Path<K>>;
 
-export function getFromPath<O, K extends RHFPath<O> | FieldPathByValue<O, any>>(obj: O, path: K): Get<O, K>;
+export function getFromPath<O, K extends Path<O>>(obj: O, path: K): PathValue<O, K>;
 export function getFromPath(obj: Record<string, unknown>, path: string): unknown {
   const keys = path.split(".");
 

@@ -17,8 +17,8 @@ export function setFromPath<T>(obj: T, path: Path<T>, value) {
     return newObj
 };
 
-export function swapEnumToStringObj<T>(obj: T, map: Record<Path<T>, object>) {
-    return Object.entries(map).reduce((prev, [path, enumme]: [Path<T>, any]) => {
-        return setFromPath(prev, path, enumme[getFromPath(obj, path)])
-    }, obj)
-}
+// export function swapEnumToStringObj<T>(obj: T, map: Record<Path<T>, object>) {
+//     return Object.entries(map).reduce((prev, [path, enumme]: [Path<T>, any]) => {
+//         return setFromPath(prev, path, enumme[getFromPath(obj, path)])
+//     }, obj)
+// }

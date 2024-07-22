@@ -1,7 +1,7 @@
-import { configTool, valueTool } from "./propertyTools/tools/allPropertyTools"
-import { DatabaseData, PageData, PageParent, ParentData, PropertyData, PropertyValueData, WorkspaceParent, } from "./iNotionData";
-import { PropertyType } from "./enums"
+import { DatabaseData, PageData, PageParent, ParentData, PropertyData, PropertyValueData, SimplePropertyData, WorkspaceParent } from "./iNotionData";
+import { PropertyType } from "./notionConstants"
 import { isExtends } from "~/utils";
+import { configTool, valueTool } from "./propertyTools";
 
 export function getType(key: keyof typeof PropertyType): PropertyType {
     var type = PropertyType[key]
@@ -20,6 +20,12 @@ export function extractParent(data): ParentData {
         case "block_id":
             return { type: "block", id: data.block_id }
     }
+}
+
+export function extractSimpleProperties(data): SimplePropertyData[] {
+    return Object.values(data).map((item: any) => ({
+        name: item.name, id: item.id, type: getType(item.type)
+    }))
 }
 
 export function extractProperties(data): PropertyData[] {

@@ -1,4 +1,4 @@
-import { PropertyType } from "./enums";
+import { PropertyType } from "./notionConstants";
 
 export interface NotionData {
     name: string;
@@ -11,8 +11,11 @@ export interface DatabaseParent { type: "database", id: string }
 export interface BlockParent { type: "block", id: string }
 export type ParentData = WorkspaceParent | PageParent | DatabaseParent | BlockParent
 
-export interface PropertyData extends NotionData {
+export interface SimplePropertyData extends NotionData {
     type: PropertyType
+}
+
+export interface PropertyData extends SimplePropertyData {
     description?: string
     details: unknown
 }

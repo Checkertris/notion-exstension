@@ -1,5 +1,4 @@
-import { camelCase } from "./stringUtils";
-import { IsEqual, isExtends, RecordValue } from "./typeUtils";
+import { IsEqual, RecordValue } from "./typeUtils";
 
 export type AnyObject = {
   [k: string]: any;
@@ -16,24 +15,27 @@ export function recordLength<T extends Record<any, any>>(record: T) {
   return Object.keys(record).length;
 }
 
-export type FlexibleRecord<T> = T | Record<PropertyKey, T>;
-
-export type IsRecord<T, Y, N> = T extends Record<any, any> ? Y : N;
-
-export function flexibleRecord<T>(value: T, defaultKey: PropertyKey) {
-  if (isExtends<Record<any, any>>(value)) return value;
-  else return { [defaultKey]: value };
+export function shiftRecord(record: Record<any, any>) {
+  var entries = Object.entries(record)
+  entries.shift()
+  return reduceObject(entries)
 }
 
-type Infer<T> = T extends Array<infer A> ? A : [keyof T, RecordValue<T>];
-export function reduceObject<T extends any[] | Record<any, any>, V extends any, K extends PropertyKey = keyof T, t = Infer<T>>(ref: T, func?: { value?: (input: t) => V; key?: (input: t) => K; filter?: (input: t) => boolean }): Record<K, V> {
+export type LiteralString<T extends string> = Exclude<T, string>
+
+export const terminateSym = Symbol()
+type InferParams<T> = T extends Array<infer A> ? A : [keyof T, RecordValue<T>];
+export function reduceObject<T extends any[] | Record<any, any>, V extends any, K extends PropertyKey = keyof T, t = InferParams<T>>(ref: T, func?: { value?: (input: t) => V; key?: (input: t) => K; filter?: (input: t) => boolean }): Record<K, V> {
   var isArray = typeof ref == typeof refArray;
   var refArray = isArray ? ref : Object.entries(ref);
+  var terminate: boolean
   return refArray.reduce((prevObj, entry) => {
+    if (terminate) return false
     if (func?.filter ? func.filter(entry) : true) {
       var key = func?.key ? func.key(entry) : isArray ? entry : entry[0];
       var value = func?.value ? func.value(entry) : isArray ? entry : entry[1];
       prevObj[key] = value;
+      if (key == terminateSym || value == terminateSym) terminate = true
     }
     return prevObj;
   }, {} as Record<K, V>);
@@ -61,3 +63,10 @@ export function findDifference<T extends AnyObject>(list1: T[], list2: T[], key:
   if (list1Diff.length > 0 || list2Diff.length > 0) return [list1Diff, list2Diff] as [T[], T[]]
   else return false
 }
+
+type LengthObject<T, K extends keyof T = keyof T> = [K] extends [never]
+  ? []
+  : K extends K ? [0, ...LengthObject<Omit<T, K>>] : never
+
+export type RecordLength<T> = LengthObject<T>["length"]
+

@@ -3,5 +3,5 @@ export * from "./enumUtils";
 export * from "./mathUilts";
 export * from "./stringUtils";
 export * from "./typeUtils";
-export * from "./componentUtils";
-export * from "./setFrompath";
+export * from "../tools/variantManager";
+export * from "./setFromPath";
