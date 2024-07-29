@@ -1,7 +1,6 @@
 import yup from "yup";
 import RHF from "react-hook-form";
 import { LiteralRecord } from "~/utils";
-import FlexibleRecord from "~/utils/flexibleRecord";
 import { Builder } from "~/features/builder";
 
 export type FormSchema = yup.ObjectSchema<LiteralRecord<any>>;
@@ -17,14 +16,12 @@ export type UseFormReturnBuilders<T extends Record<string, UseFormReturn>> = {
   [k in keyof T]: Builder<T[k]>
 }
 
-export type FlexibleUseFormReturnValues<T extends FlexibleRecord.Type<UseFormReturn>> = T extends UseFormReturn ? UseFormReturnValues<T> : T extends Record<string, UseFormReturn> ? UseFormReturnValuesList<T> : never
-
 export interface UseFormReturn<S extends FormSchema = FormSchema> extends Omit<RHF.UseFormReturn<FormValues<S>>, "handleSubmit"> {
   defaultValues: FormDefaultValues<S>;
   handleSubmit: () => Promise<FormValues<S> | false>;
 }
 
-export interface UseFormListReturn<T extends FlexibleRecord.Type<UseFormReturn>> {
+export interface UseFormListReturn<T extends Record<string, UseFormReturn>> {
   trigger: () => void;
-  handleSubmit: () => Promise<FlexibleUseFormReturnValues<T> | false>;
+  handleSubmit: () => Promise<UseFormReturnValuesList<T> | false>;
 }

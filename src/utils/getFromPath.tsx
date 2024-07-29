@@ -18,9 +18,9 @@ type GetWithArray<O, K> = K extends []
 
 type Path<T> = T extends `${infer Key}.${infer Rest}` ? [Key, ...Path<Rest>] : T extends `${infer Key}` ? [Key] : [];
 
-export type PathValue<O, K> = GetWithArray<O, Path<K>>;
+type Get<O, K> = GetWithArray<O, Path<K>>;
 
-export function getFromPath<O, K extends Path<O>>(obj: O, path: K): PathValue<O, K>;
+export function getFromPath<O, K extends Path<O>>(obj: O, path: K): Get<O, K>;
 export function getFromPath(obj: Record<string, unknown>, path: string): unknown {
   const keys = path.split(".");
 

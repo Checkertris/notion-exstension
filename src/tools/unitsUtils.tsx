@@ -1,5 +1,25 @@
-import { LiquidUnits, MassUnits, Units, UnitsType, OtherUnits } from "./unitsEnum";
-import { reduceObject } from "~/utils";
+import { reduceArray } from "~/utils";
+
+export enum LiquidUnits {
+  tsp,
+  tbsp,
+  cup,
+  ml,
+  l,
+  fl_oz,
+}
+export enum MassUnits {
+  lb,
+  g,
+  kg,
+  oz,
+}
+export enum OtherUnits {
+  whole,
+}
+
+export type Units = LiquidUnits | MassUnits | OtherUnits;
+export type UnitsType = "Liquid" | "Mass" | "Others";
 
 interface UnitsData {
   readonly type: UnitsType;
@@ -33,7 +53,7 @@ export const getUnitsType = (input): UnitsType => {
 };
 
 const create = (): Record<string, UnitsData> => {
-  return reduceObject(internal, {
+  return reduceArray(internal, {
     key: (data) => data.units.valueOf(),
     value: (data) => {
       var searchTerms = [data.units.toString(), data.text, data.text];
@@ -42,6 +62,4 @@ const create = (): Record<string, UnitsData> => {
   });
 };
 
-const UnitsInfo = create();
-
-export default UnitsInfo;
+export const UnitsInfo = create();

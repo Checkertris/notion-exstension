@@ -1,7 +1,7 @@
-import { DatabaseData, PageData, PageParent, ParentData, PropertyData, PropertyValueData, SimplePropertyData, WorkspaceParent } from "./iNotionData";
+import { DatabaseData, PageData, ParentData, PropertyData, PropertyValueData, SimplePropertyData, WorkspaceParent } from "./iNotionData";
 import { PropertyType } from "./notionConstants"
 import { isExtends } from "~/utils";
-import { configTool, valueTool } from "./propertyTools";
+import { configTool, valueTool } from "./propertyTools/index";
 
 export function getType(key: keyof typeof PropertyType): PropertyType {
     var type = PropertyType[key]
@@ -9,17 +9,21 @@ export function getType(key: keyof typeof PropertyType): PropertyType {
     return type
 }
 
-export function extractParent(data): ParentData {
+export function extractParent<T extends ParentData>(data): T {
+    var parent
     switch (data.type) {
         case "database_id":
-            return { type: "database", id: data.database_id }
+            parent = { type: "database", id: data.database_id }
         case "page_id":
-            return { type: "page", id: data.page_id }
+            parent = { type: "page", id: data.page_id }
         case "workspace":
-            return { type: "workspace" }
+            parent = { type: "workspace" }
         case "block_id":
-            return { type: "block", id: data.block_id }
+            parent = { type: "block", id: data.block_id }
     }
+    if (!parent) throw ReferenceError("cannot find parent")
+    if (isExtends<T>(parent)) return parent
+    throw ReferenceError("invalid parent for this object")
 }
 
 export function extractSimpleProperties(data): SimplePropertyData[] {
@@ -49,7 +53,6 @@ export function extractDatabase(data): DatabaseData {
 
 export function extractPage(data): PageData {
     var name = data.properties.Title.title[0].plain_text;
-    var parent = extractParent(data.parent)
-    if (isExtends<WorkspaceParent | PageParent>(parent)) return { name, parent, id: data.id, url: data.url }
-    else throw ReferenceError("invalid page parent")
+    return { name, id: data.id, url: data.url, parent: extractParent(data.parent) }
+
 }

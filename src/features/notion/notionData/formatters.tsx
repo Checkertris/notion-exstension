@@ -1,6 +1,6 @@
 import { isExtends, reduceObject } from "~/utils"
 import { PropertyType } from "./notionConstants"
-import { configTool, notReadonly, valueTool } from "./propertyTools";
+import { configTool, creatable, valueTool } from "./propertyTools/index.tsx";
 import { PropertyData, NewPropertyData, PropertyValueData, NewPropertyValueData, ParentData, DatabaseData } from "./iNotionData"
 
 export function formatParent(parent: ParentData) {
@@ -27,13 +27,13 @@ export function formatProperties(properties: PropertyData[] | NewPropertyData[])
 
 export function formatPropertyValues(properties: NewPropertyValueData[] | PropertyValueData[]) {
     return reduceObject(properties, {
-        filter: (property) => notReadonly(valueTool(property.type)),
+        filter: (property) => creatable(valueTool(property.type)),
         key: (property) => {
             if (isExtends<PropertyValueData>(property)) return property.id
             return property.name
         }, value: (property) => {
             var tool = valueTool(property.type)
-            if (notReadonly(tool)) return { [PropertyType[property.type]]: tool.format(property.details) }
+            if (creatable(tool)) return { [PropertyType[property.type]]: tool.format(property.details) }
         }
     })
 }

@@ -1,6 +1,6 @@
-import { InferFormKeys, InputNodeBuilder } from "../childNodeBuilder"
-import { ParentNodeBuilder } from "../parentNodeBuilder";
-import { Path, getFromPath, PathValue } from "~/utils";
+import { InputNodeBuilder } from "./inputNodeBuilder"
+import { ParentNodeBuilder, InferForms } from "../iFormNodeBuilder";
+import { Path, getFromPath, PathValue, KeyByValue } from "~/utils";
 import { UseFormReturn, UseFormReturnValues, FormField, ErrorMessage } from "~/features/form";
 import { quickFieldProps, enumKeysToQuickOptions, quickSelectProps, quickCheckboxProps, QuickTextField, quickTextAreaProps, quickTextFieldProps, QuickCheckbox, QuickSelect, QuickTextArea } from "~/components/quickComponents";
 import { icon } from "~/constants";
@@ -8,13 +8,13 @@ import { icon } from "~/constants";
 type InferProps<T> = T extends quickFieldProps<infer A> ? A : never
 type InferPath<T extends UseFormReturn> = Path<UseFormReturnValues<T>>
 
-export abstract class QuickInputBuilder<TPage extends ParentNodeBuilder<any>, TForm extends UseFormReturn = UseFormReturn, TPath extends InferPath<TForm> = InferPath<TForm>, TProps extends quickFieldProps<any> = quickFieldProps<any>> extends InputNodeBuilder<TPage, TForm> {
+export abstract class QuickInputBuilder<TParent extends ParentNodeBuilder<any>, TForm extends UseFormReturn = UseFormReturn, TPath extends InferPath<TForm> = InferPath<TForm>, TProps extends quickFieldProps<any> = quickFieldProps<any>> extends InputNodeBuilder<TParent, TForm> {
     path: TPath
     transform: (value: InferProps<TProps>) => Promise<PathValue<UseFormReturnValues<TForm>, TPath>>
     component_props: Omit<TProps, "onChange" | "defaultValues">
     abstract component: (props: TProps) => JSX.Element;
 
-    constructor(key: InferFormKeys<TPage, TForm>, path: TPath) {
+    constructor(key: KeyByValue<InferForms<TParent>, TForm>, path: TPath) {
         super(key)
         this.path = path
     }
@@ -27,9 +27,9 @@ export abstract class QuickInputBuilder<TPage extends ParentNodeBuilder<any>, TF
         this.transform = transform;
     }
 
-    buildContent(form: TForm): JSX.Element {
+    build(forms: InferForms<TParent>): JSX.Element {
         var Component = () => {
-            const { control, defaultValues } = form
+            const { control, defaultValues } = this.getForm(forms)
 
             var onChange = (field) => (this.transform ? (value) => this.transform(value).then(field.onChange) : field.onChange);
             var defaultValue = getFromPath(defaultValues, this.path as any);
@@ -51,7 +51,7 @@ export abstract class QuickInputBuilder<TPage extends ParentNodeBuilder<any>, TF
     }
 }
 
-export abstract class Checkbox<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickCheckboxProps> {
+export class Checkbox<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickCheckboxProps> {
     component = QuickCheckbox;
 
     addText(text: string) {
@@ -59,7 +59,7 @@ export abstract class Checkbox<T extends ParentNodeBuilder<any>, F extends UseFo
     }
 }
 
-export abstract class Select<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickSelectProps> {
+export class Select<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickSelectProps> {
     component = QuickSelect;
 
     addEnumOptions(enumme) {
@@ -78,7 +78,7 @@ export abstract class Select<T extends ParentNodeBuilder<any>, F extends UseForm
     }
 }
 
-export abstract class Text<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickTextFieldProps> {
+export class Text<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickTextFieldProps> {
     component = QuickTextField;
 
     mode(mode: "onBlur" | "onChange") {
@@ -87,7 +87,7 @@ export abstract class Text<T extends ParentNodeBuilder<any>, F extends UseFormRe
     }
 }
 
-export abstract class TextArea<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickTextAreaProps> {
+export class TextArea<T extends ParentNodeBuilder<any>, F extends UseFormReturn, P extends InferPath<F>> extends QuickInputBuilder<T, F, P, quickTextAreaProps> {
     component = QuickTextArea;
 
     mode(mode: "onBlur" | "onChange") {

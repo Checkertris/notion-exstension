@@ -1,5 +1,5 @@
 import { QuickOutput } from "~/components/quickComponents";
-import { ChildNodeBuilder } from "../childNodeBuilder";
+import { ChildNodeBuilder } from "../iFormNodeBuilder";
 
 export class OutputBuilder implements ChildNodeBuilder<any> {
   output: JSX.Element;

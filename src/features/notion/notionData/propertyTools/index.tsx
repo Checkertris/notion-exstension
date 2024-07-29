@@ -1,6 +1,6 @@
-import { ConfigTool } from "./toolTemplates/configTool";
 import { ValueToolBase } from "./toolTemplates/valueTool";
 import { PropertyType } from "../notionConstants";
+import { ConfigTool } from "./toolTemplates/configTool";
 import { CheckboxTool, EmailTool, PhoneTool, UrlTool } from "./propertyToolVariants/primitives";
 import { CreatedTimeTool, LastEditedTimeTool } from "./propertyToolVariants/time";
 import { DateTool } from "./propertyToolVariants/date";
@@ -15,8 +15,6 @@ import { TextTool, TitleTool } from "./propertyToolVariants/richText";
 import { StatusTool } from "./propertyToolVariants/status";
 import { isExtends } from "~/utils";
 import { ValueTool } from "./toolTemplates/valueTool";
-
-type Tool<T extends PropertyType> = typeof allTools[T]
 
 const allTools = {
     [PropertyType.checkbox]: new CheckboxTool(),
@@ -40,9 +38,11 @@ const allTools = {
     [PropertyType.title]: new TitleTool(),
     [PropertyType.status]: new StatusTool()
 }
-export type Property<T extends PropertyType> = Tool<T>["config"] extends ConfigTool<any, infer A> ? A : never
 
-export type PropertyValue<T extends PropertyType> = Tool<T>["value"] extends ValueToolBase<infer A> ? A : never
+type Tool<T extends PropertyType> = typeof allTools[T]
+
+export type PropertyDetails<T extends PropertyType> = Tool<T>["config"] extends ConfigTool<any, infer A> ? A : never
+export type PropertyValueDetails<T extends PropertyType> = Tool<T>["value"] extends ValueToolBase<infer A> ? A : never
 
 export function configTool<T extends PropertyType>(key: T) {
     return allTools[key].config as Tool<T>["config"]
@@ -56,6 +56,6 @@ export function valueTool<T extends PropertyType>(key: T) {
     return allTools[key].value as Tool<T>["value"]
 }
 
-export function notReadonly<T>(tool: ValueToolBase<T>) {
+export function creatable<T>(tool: ValueToolBase<T>) {
     return isExtends<ValueTool<T>>(tool)
 }

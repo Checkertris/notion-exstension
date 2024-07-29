@@ -1,5 +1,5 @@
 import { SelectColor } from "../../notionConstants"
-import { findDifference, InferKeys } from "~/utils";
+import { findDifference, InferOptions } from "~/utils";
 import { ValueTool } from "../toolTemplates/valueTool";
 import { PropertyTool } from "../toolTemplates/propertyTool"
 import { ConfigTool } from "../toolTemplates/configTool";
@@ -54,7 +54,7 @@ class SelectConfigTool extends ConfigTool<NewSelect, Select> {
 }
 
 class SelectValueTool extends ValueTool<SelectValue> {
-    create<T extends Select>(config: T, name: InferKeys<T["options"], "name">) {
+    create<T extends Select>(config: T, name: InferOptions<T["options"], "name">) {
         var id = config.options.find((option) => option.name == name).id
         return { id }
     }
@@ -63,7 +63,7 @@ class SelectValueTool extends ValueTool<SelectValue> {
 }
 
 class MultiSelectValueTool extends ValueTool<SelectValue[]> {
-    create<T extends Select>(config: T, names: InferKeys<T["options"], "name">[]) {
+    create<T extends Select>(config: T, names: InferOptions<T["options"], "name">[]) {
         return names.map((name) => {
             var id = config.options.find((option) => option.name == name).id
             return { id }

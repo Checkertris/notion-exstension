@@ -1,4 +1,4 @@
-import { ChildNodeBuilder } from "../childNodeBuilder";
+import { ChildNodeBuilder } from "../iFormNodeBuilder";
 
 export class CustomBuilder implements ChildNodeBuilder<any> {
   component: JSX.Element;

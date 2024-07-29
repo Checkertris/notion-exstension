@@ -1,11 +1,20 @@
-import FlexibleRecord from "~/utils/flexibleRecord";
-import { UseFormReturn, UseFormReturnBuilders } from "./iForms";
-import { RecordParentBuilder } from "~/features/builder";
-import useFormList from "./useFormList";
+import { BuilderOf, BuilderRecordReturn, buildVariants, NonEmptyIterator } from "../builder";
+import { UseFormListReturn, UseFormReturn } from "./iForms";
+import { useFormList } from "./useFormList";
 
-export class FormListBuilder<T extends Record<string, UseFormReturn>> extends RecordParentBuilder<[], UseFormReturnBuilders<T>> {
-    build() {
-        return useFormList(FlexibleRecord.convert(this.buildChildren()))
+export class FormListBuilder<T extends Record<string, BuilderOf<UseFormReturn>>> extends NonEmptyIterator<T, () => UseFormListReturn<BuilderRecordReturn<T>>> {
+    forms: T
+    constructor(forms: T) {
+        super()
+        this.forms = forms
+    }
+
+    add<K extends string, V extends BuilderOf<UseFormReturn>>(form: { [k in K]: V }) {
+        return new FormListBuilder({ ...this.forms, ...form })
+    }
+
+    _build() {
+        var forms = buildVariants.record<[], T>(this._data)
+        return useFormList(forms)
     }
 }
-

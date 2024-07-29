@@ -2,7 +2,8 @@ import { SelectColor } from "../../notionConstants";
 import { ValueTool } from "../toolTemplates/valueTool";
 import { Comparison, ReadonlyConfigTool } from "../toolTemplates/configTool";
 import { PropertyTool } from "../toolTemplates/propertyTool"
-import { cn, findDifference, InferKeys } from "~/utils";
+import { findDifference, InferOptions } from "~/utils";
+import { cn } from "~/tools/variantManager";
 
 interface Option {
     name: string
@@ -19,7 +20,7 @@ interface StatusValue {
     id: string
 }
 
-function getGroupOptions<S extends Status>(status: S, id: InferKeys<S["groups"], "id">): Option[] {
+function getGroupOptions<S extends Status>(status: S, id: InferOptions<S["groups"], "id">): Option[] {
     var group = status.groups.find((group) => group.id == id)
     return group.option_ids.map((id) => {
         var option = status.options.find((option) => option.id == id)

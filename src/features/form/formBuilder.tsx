@@ -34,7 +34,6 @@ export class FormBuilder<T extends FormSchema> implements Builder<UseFormReturn<
       resolver: yupResolver(this.schema, {}, { mode: this.configuration.syncMode }),
       defaultValues: this.defaultValues,
     });
-
     return useForm<T>(form, this.defaultValues);
   }
 }

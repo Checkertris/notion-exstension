@@ -1,21 +1,22 @@
 import { useRef } from "react";
-import { terminateSym } from "~/utils";
-import FlexibleRecord from "~/utils/flexibleRecord";
-import { UseFormReturn, UseFormListReturn } from "./iForms";
+import { reduceObject, terminateSym } from "~/utils";
+import { UseFormReturn, UseFormListReturn, UseFormReturnValuesList } from "./iForms";
 
-export default function useFormList<T extends FlexibleRecord.Type<UseFormReturn>>(input: T): UseFormListReturn<T> {
+export function useFormList<T extends Record<string, UseFormReturn>>(input: T): UseFormListReturn<T> {
   const forms = useRef(input).current;
 
-  async function handleSubmit() {
-    return FlexibleRecord.asyncIterate(forms, async (form: UseFormReturn) => {
-      var result = await form.handleSubmit()
-      if (!result) return terminateSym
-      return result
-    })
+  async function handleSubmit(): Promise<UseFormReturnValuesList<T> | false> {
+    return reduceObject(forms, {
+      value: async (key, form) => {
+        var result = await form.handleSubmit()
+        if (!result) return terminateSym
+        return result
+      }
+    }) as any
   }
 
   function trigger() {
-    FlexibleRecord.iterate(forms, (form) => form.trigger())
+    return Object.values((form) => form.trigger())
   }
 
   return { trigger, handleSubmit };

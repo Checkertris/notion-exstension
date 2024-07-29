@@ -1,9 +1,7 @@
-import { VariantManager, cva } from "~/utils";
+import VariantManager, { cva } from "~/tools/variantManager";
 import { FieldsetPageBuilder } from "./fieldsetPageBuilder";
-import { QuickInputBuilder } from "../../../form/formNodeBuilders/inputNodes/quickInputBuilder";
-import { OutputBuilder } from "../../../form/formNodeBuilders/childNodes/outputBuilder";
-import { CustomBuilder } from "../../../form/formNodeBuilders/childNodes/customBuilder";
-import { BridgeNodeBuilder } from "../../../form/formNodeBuilders/childNodeBuilder";
+import { InferForms, InputNodeBuilder } from "../formNodeBuilders";
+import { SingleIterator } from "../builder";
 
 const fieldsetItemVariants = cva("grid", {
   variants: {
@@ -21,7 +19,7 @@ const fieldsetItemVariants = cva("grid", {
   },
 });
 
-export class FieldsetItemBuilder<T extends FieldsetPageBuilder<any>> extends BridgeNodeBuilder<T, QuickInputBuilder<T> | OutputBuilder | CustomBuilder> {
+export class FieldsetItemBuilder<T extends FieldsetPageBuilder<any>> extends SingleIterator<InputNodeBuilder<T, any>, (name: string, forms: InferForms<T>) => JSX.Element> {
   variants = new VariantManager(fieldsetItemVariants);
 
   indent() {
@@ -34,11 +32,11 @@ export class FieldsetItemBuilder<T extends FieldsetPageBuilder<any>> extends Bri
     return this;
   }
 
-  buildContent(name: string, child: JSX.Element): JSX.Element {
+  _build(name: string, forms: InferForms<T>): JSX.Element {
     return (
       <div className={this.variants.get()}>
         {name && <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">{name}</label>}
-        {child}
+        {this._data.build(forms)}
       </div>
     );
   }

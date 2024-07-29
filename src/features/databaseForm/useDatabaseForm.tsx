@@ -1,7 +1,6 @@
 import { UseFormReturn } from "../form";
-import { DatabaseSchema } from "./types";
-import { PropertyField } from "./propertyField";
+import { DatabaseSchema, PropertyField } from "./iDatabaseForm";
 
-export const useDatabaseForm = <TKey extends string>(form: UseFormReturn<DatabaseSchema<TKey>>, properties: Record<TKey, PropertyField<any>>) => {
+export const useDatabaseForm = <TKey extends string>(form: UseFormReturn<DatabaseSchema<TKey>>, properties: Record<TKey, PropertyField>) => {
   return { ...form, properties };
 };

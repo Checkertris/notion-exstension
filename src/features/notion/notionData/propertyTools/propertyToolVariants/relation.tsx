@@ -2,7 +2,7 @@
 import { PageData } from "~/structure/config/pageConfig"
 import { SimpleConfigTool } from "../toolTemplates/configTool"
 import { ValueTool } from "../toolTemplates/valueTool"
-import { InferKeys } from "~/utils"
+import { InferOptions } from "~/utils"
 import { PropertyTool } from "../toolTemplates/propertyTool"
 
 interface Relation {
@@ -35,10 +35,8 @@ class RelationConfigTool extends SimpleConfigTool<Relation> {
 }
 
 class RelationValueTool extends ValueTool<string[]> {
-    create = <T extends PageData[]>(pages: T, names: InferKeys<T, "name">[]) => names.map((name) => pages.find((page) => page.name == name).id)
-
+    create = <T extends PageData[]>(pages: T, names: InferOptions<T, "name">[]) => names.map((name) => pages.find((page) => page.name == name).id)
     extract = (data) => data.map((item) => item.id)
-
     format = (value: string[]) => value.map((id) => ({ id }))
 }
 

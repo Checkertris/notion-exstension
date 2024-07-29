@@ -6,7 +6,7 @@ import { DatabaseFormContext } from "./databaseFormContext";
 import { PropertiesTable } from "./existingDatabase/propertiesTable";
 import { PageSelect } from "./newDatabase/pageSelect";
 import { NameInput } from "./newDatabase/nameInput";
-import { UseDatabaseFormReturn } from "../useDatabaseFormReturn";
+import { UseDatabaseFormReturn } from "../iDatabaseForm";
 
 export const DatabaseForm = (form: UseDatabaseFormReturn<any>) => {
   function setAccordion() {
