@@ -1,6 +1,6 @@
-import { PropertyType } from "../notion";
-import { UseFormReturn } from "../form";
+import { UseFormReturn } from "react-hook-form";
 import { createDatabaseSchema } from "./createDatabaseSchema";
+import { PropertyType } from "../notion";
 
 export interface PropertyField {
   label: string;

@@ -1,8 +1,8 @@
-import { ConfigTool } from "./configTool"
-import { ValueToolBase } from "./valueTool"
+import { ConfigTool } from "./configTool";
+import { ReadonlyValueTool } from "./valueTool";
 
 export abstract class PropertyTool {
-    abstract config: ConfigTool<any>
-    abstract value: ValueToolBase<any>
-    abstract label: string
+  abstract config: ConfigTool<any>;
+  abstract value: ReadonlyValueTool<any>;
+  abstract label: string;
 }

@@ -1,6 +1,6 @@
 import { boolean, object, string } from "yup";
 import { DatabaseData, SimplePropertyData, ParentOfDatabase } from "~/features/notion";
-import { LiteralRecord, reduceObject } from "~/utils";
+import { LiteralRecord, reduceObject } from "~/features/utils";
 import { yupCustom, isNewSchema } from "~/services/yup";
 import { PropertyField } from "./iDatabaseForm";
 

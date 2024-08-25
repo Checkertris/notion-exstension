@@ -2,7 +2,7 @@
 import { PageData } from "~/structure/config/pageConfig"
 import { SimpleConfigTool } from "../toolTemplates/configTool"
 import { ValueTool } from "../toolTemplates/valueTool"
-import { InferOptions } from "~/utils"
+import { InferOptions } from "~/tools/utils"
 import { PropertyTool } from "../toolTemplates/propertyTool"
 
 interface Relation {

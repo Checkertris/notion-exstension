@@ -9,8 +9,37 @@
 // const fieldsets = [
 //   {
 //     label: "Configure Database",
-//     database: "main",
-//     items: [
+//     database:  {
+//   ingredients: { label: "Ingredient", type: PropertyType.rich_text, [PropertyAction.NONE]: {}, description: "contains the ingredient's description" },
+//   recipe: { label: "Recipe", type: PropertyType.relation, [PropertyAction.SELF_RELATION]: { database_id: "" }, description: "the parent page that corresponds to the ingredient's recipe" },
+//   originalUnits: {
+//     label: "Original Units",
+//     type: PropertyType.select,
+//     description:
+//       "the units used in the original recipe, this value can be changed by the user and the portion to calculate will change accordingly. note that any select options that do not match the names of the preset units of measurements will be overwritten",
+//   },
+//   originalValue: {
+//     label: "Original Value",
+//     type: PropertyType.number,
+//     description: "the amount specified in the original recipe, this value can be changed by the user and the portion to calculate will change accordingly.",
+//   },
+//   calculatedValue: {
+//     label: "Calculated Value",
+//     type: PropertyType.formula,
+//     description: "for lookup of portion in parent Recipe, you can hide this property from view",
+//   },
+//   preferedUnits: {
+//     label: "Prefered Units",
+//     type: PropertyType.multi_select,
+//     description: "specifies the the prefered units the Original Value should be converted to. units specified in the child page will take priority, otherwise it will be taken from the parent Recipe.",
+//   },
+//   portion: {
+//     label: "Portion",
+//     type: PropertyType.number,
+//     description: "for lookup of portion in parent Recipe, you can hide this property from view",
+//   },
+// },
+//     config: [
 //       {
 //         row: [
 //           {
@@ -97,39 +126,3 @@
 //     },
 //   }
 // );
-
-// const K = {
-//   ingredients: { label: "Ingredient", type: PropertyType.rich_text, [PropertyAction.NONE]: {}, description: "contains the ingredient's description" },
-//   recipe: { label: "Recipe", type: PropertyType.relation, [PropertyAction.SELF_RELATION]: { database_id: "" }, description: "the parent page that corresponds to the ingredient's recipe" },
-//   originalUnits: {
-//     label: "Original Units",
-//     type: PropertyType.select,
-//     [PropertyAction.TRANSFORM]: createOriginalUnitsDetails,
-//     description:
-//       "the units used in the original recipe, this value can be changed by the user and the portion to calculate will change accordingly. note that any select options that do not match the names of the preset units of measurements will be overwritten",
-//   },
-//   originalValue: {
-//     label: "Original Value",
-//     type: PropertyType.number,
-//     [PropertyAction.NONE]: {},
-//     description: "the amount specified in the original recipe, this value can be changed by the user and the portion to calculate will change accordingly.",
-//   },
-//   calculatedValue: {
-//     label: "Calculated Value",
-//     type: PropertyType.formula,
-//     [PropertyAction.TRANSFORM]: createCalculatedValueDetails,
-//     description: "for lookup of portion in parent Recipe, you can hide this property from view",
-//   },
-//   preferedUnits: {
-//     label: "Prefered Units",
-//     type: PropertyType.multi_select,
-//     [PropertyAction.TRANSFORM]: createPreferedUnitsDetails,
-//     description: "specifies the the prefered units the Original Value should be converted to. units specified in the child page will take priority, otherwise it will be taken from the parent Recipe.",
-//   },
-//   portion: {
-//     label: "Portion",
-//     type: PropertyType.number,
-//     [PropertyAction.NONE]: {},
-//     description: "for lookup of portion in parent Recipe, you can hide this property from view",
-//   },
-// };

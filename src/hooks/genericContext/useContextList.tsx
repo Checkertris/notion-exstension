@@ -1,6 +1,6 @@
 import { ContextPair, ContextList } from "./types";
 import { useGenericContext } from "./useGenericContext";
-import { reduceObject } from "~/utils";
+import { reduceObject } from "~/tools/utils";
 
 export function useContextList<T extends Record<string, any>>(items: T) {
   var pairs = reduceObject(items, { value: ([name, item]: [string, any]) => useGenericContext(item) });

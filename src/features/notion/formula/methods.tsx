@@ -1,4 +1,4 @@
-import { reduceObject } from "~/utils";
+import { reduceObject } from "~/tools/utils";
 import { functionWrapper } from "./utils";
 import { parameter, variable } from "./paramters";
 import { valueType, InferValueType } from "./types";

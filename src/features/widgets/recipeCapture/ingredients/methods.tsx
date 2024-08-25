@@ -1,6 +1,6 @@
 import { TermTuple } from "./ingredientData";
 import { Units } from "~/tools/units";
-import { average, numberRegex, letterRegex } from "~/utils";
+import { average, numberRegex, letterRegex } from "~/tools/utils";
 
 function getFractionFromString(str: string): number {
   var strs = str.split(" ");

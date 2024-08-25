@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { reduceObject } from "~/utils";
+import { reduceObject } from "~/tools/utils";
 
 export function useRecord<K extends PropertyKey, V>(defaultValue: Record<K, V> = {} as Record<K, V>) {
   const [state, setState] = useState<Record<K, V>>(defaultValue);

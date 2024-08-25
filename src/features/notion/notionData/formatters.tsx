@@ -1,4 +1,4 @@
-import { isExtends, reduceObject } from "~/utils"
+import { isExtends, reduceObject } from "~/tools/utils"
 import { PropertyType } from "./notionConstants"
 import { configTool, creatable, valueTool } from "./propertyTools/index.tsx";
 import { PropertyData, NewPropertyData, PropertyValueData, NewPropertyValueData, ParentData, DatabaseData } from "./iNotionData"

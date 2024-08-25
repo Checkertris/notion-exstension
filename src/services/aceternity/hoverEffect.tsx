@@ -1,7 +1,7 @@
 import { cn } from "../shadcn/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { inRange } from "~/utils";
+import { inRange } from "~/tools/utils";
 
 interface HoverEffectProps {
   items: (() => JSX.Element)[];

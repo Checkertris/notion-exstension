@@ -2,7 +2,7 @@ import { SelectColor } from "../../notionConstants";
 import { ValueTool } from "../toolTemplates/valueTool";
 import { Comparison, ReadonlyConfigTool } from "../toolTemplates/configTool";
 import { PropertyTool } from "../toolTemplates/propertyTool"
-import { findDifference, InferOptions } from "~/utils";
+import { findDifference, InferOptions } from "~/tools/utils";
 import { cn } from "~/tools/variantManager";
 
 interface Option {

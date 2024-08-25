@@ -1,5 +1,5 @@
 import { UnitsInfo } from "~/tools/units";
-import { bracketRegex } from "~/utils";
+import { bracketRegex } from "~/tools/utils";
 import { IngredientData, IngredientDataGroup, TermTuple } from "./ingredientData";
 import { getDigitsTuple, getUnitsTuple } from "./methods";
 

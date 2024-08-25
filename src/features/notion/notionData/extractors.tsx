@@ -1,6 +1,6 @@
 import { DatabaseData, PageData, ParentData, PropertyData, PropertyValueData, SimplePropertyData, WorkspaceParent } from "./iNotionData";
 import { PropertyType } from "./notionConstants"
-import { isExtends } from "~/utils";
+import { isExtends } from "~/tools/utils";
 import { configTool, valueTool } from "./propertyTools/index";
 
 export function getType(key: keyof typeof PropertyType): PropertyType {

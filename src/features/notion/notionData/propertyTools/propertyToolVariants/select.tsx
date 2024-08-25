@@ -1,5 +1,5 @@
 import { SelectColor } from "../../notionConstants"
-import { findDifference, InferOptions } from "~/utils";
+import { findDifference, InferOptions } from "~/tools/utils";
 import { ValueTool } from "../toolTemplates/valueTool";
 import { PropertyTool } from "../toolTemplates/propertyTool"
 import { ConfigTool } from "../toolTemplates/configTool";

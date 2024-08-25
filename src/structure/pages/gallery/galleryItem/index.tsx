@@ -2,7 +2,7 @@ import GalleryItemProps from "./galleryItemProps";
 import { BentoGridItem } from "~/services/aceternity/bento";
 import { cn } from "~/services/shadcn/lib/utils";
 import { icon } from "~/constants";
-import { replaceUnderscore } from "~/utils";
+import { replaceUnderscore } from "~/tools/utils";
 
 const hSingle = "h-[6rem] min-h-[6rem]";
 const hSpread = "";

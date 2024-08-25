@@ -58,6 +58,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       "~": path.resolve(__dirname, "./src/"),
+      "@": path.resolve(__dirname, "../shared-library/src/"),
     },
   },
   output: {
